@@ -19,8 +19,8 @@ install:
   - sudo apt-get update -q
   - sudo apt-get install -q bsdtar virtualbox-5.0 linux-headers-$(uname -r)
   - sudo /sbin/rcvboxdrv setup
-  - curl -LO $VBOX_EXTPACK_URL && VBoxManage extpack install $(basename $VBOX_EXTPACK_URL)
-  - curl -L https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip | sudo bsdtar -C /usr/local/bin -xf-
+  - curl -LO $VBOX_EXTPACK_URL && sudo VBoxManage extpack install $(basename $VBOX_EXTPACK_URL)
+  - curl -L $PACKER_BIN_URL | sudo bsdtar -C /usr/local/bin -xf-
 
 script:
   - PACKER_LOG=1 packer build packer.json
