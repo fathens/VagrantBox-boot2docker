@@ -11,6 +11,7 @@
       "ssh_username": "docker",
       "ssh_password": "tcuser",
       "shutdown_command": "echo 'packer' | sudo -S shutdown -h now",
+      "headless": true,
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux26_64"
     }
