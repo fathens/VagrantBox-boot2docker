@@ -1,0 +1,16 @@
+language: c
+
+branches:
+  only:
+    - master
+    - develop
+    - /^feature\/\w+/
+
+install:
+  - sudo apt-get update -q
+  - sudo apt-get install -q wget virtualbox --fix-missing
+  - curl -L https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip | bsdtar -xf-
+  - sudo mv -vi packer /usr/local/bin/
+
+script:
+  - packer build packer.json
