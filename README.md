@@ -1,0 +1,1 @@
+# VagrantBox-boot2docker
