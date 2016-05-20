@@ -20,4 +20,4 @@ install:
   - sudo mv -vi packer /usr/local/bin/
 
 script:
-  - packer build packer.json
+  - packer build -debug packer.json
