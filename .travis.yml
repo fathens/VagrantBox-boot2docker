@@ -7,8 +7,11 @@ branches:
     - /^feature\/\w+/
 
 install:
+  - sudo apt-get install -q wget bsdtar
+  - sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+  - wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
   - sudo apt-get update -q
-  - sudo apt-get install -q bsdtar wget virtualbox --fix-missing
+  - sudo apt-get install -q virtualbox --fix-missing
   - curl -L https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip | bsdtar -xf-
   - sudo mv -vi packer /usr/local/bin/
 
