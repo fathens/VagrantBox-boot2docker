@@ -13,6 +13,7 @@ env:
 
 before_install:
   - sudo iptables -nL
+  - sudo ifconfig
   - sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
   - curl -L https://www.virtualbox.org/download/oracle_vbox.asc | sudo apt-key add -
 
