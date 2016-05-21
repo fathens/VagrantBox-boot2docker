@@ -23,4 +23,5 @@ install:
   - curl -L $PACKER_BIN_URL | sudo bsdtar -C /usr/local/bin -xf-
 
 script:
+  - sudo iptables -Ln
   - PACKER_LOG=1 packer build packer.json
