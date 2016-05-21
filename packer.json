@@ -43,7 +43,7 @@
         "type": "vagrant-cloud",
         "access_token": "{{user `vagrant_token`}}",
         "box_tag": "fathens/boot2docker",
-        "version": "0.0.3"
+        "version": "0.0.4"
       }
     ]
   ]
