@@ -9,7 +9,7 @@ branches:
     - /^feature\/\w+/
 env:
   global:
-    - DOCKER_IMAGE=fathens/docker-packer-virtualbox:develop
+    - DOCKER_IMAGE=blacklabelops/virtualbox
 
 script:
   - docker run -v $(pwd):$(pwd) -w $(pwd) -e VAGRANT_TOKEN $DOCKER_IMAGE /bin/sh -c 'packer build packer.json'
