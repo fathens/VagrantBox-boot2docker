@@ -1,3 +1,4 @@
+set -x
 
 # ssh authorized_keys
 mkdir ~/.ssh
