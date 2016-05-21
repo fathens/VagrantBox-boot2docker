@@ -1,10 +1,25 @@
-sudo adduser vagrant
-(echo vagrant; echo vagrant) | sudo passwd vagrant
 
-sudo su vagrant -c 'mkdir ~/.ssh && echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ==" > ~/.ssh/authorized_keys'
+# ssh authorized_keys
+mkdir ~/.ssh
+curl -L https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub > ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+ls -la ~/.ssh
 
-sudo chmod 700 ~vagrant/.ssh
-sudo chmod 600 ~vagrant/.ssh/authorized_keys
-sudo ls -la /home/vagrant/.ssh
+# Add to sudoers
+echo 'vagrant' | sudo -S sh -c "echo 'vagrant ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/vagrant"
+echo 'vagrant' | sudo -S chmod 0440 /etc/sudoers.d/vagrant
 
-ps axf
+# Instal Docker
+sudo apt-get update -y
+sudo apt-get install -y apt-transport-https ca-certificates
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+sudo su -c "echo 'deb https://apt.dockerproject.org/repo ubuntu-precise main' >  /etc/apt/sources.list.d/docker.list"
+sudo apt-get update -y
+apt-cache policy docker-engine
+
+# sudo apt-get install -y linux-image-generic-lts-trusty
+sudo apt-get install -y docker-engine
+sudo service docker start
+sudo groupadd docker
+sudo usermod -aG docker vagrant

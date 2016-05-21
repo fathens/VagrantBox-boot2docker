@@ -9,10 +9,22 @@
       "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.5-server-amd64.iso",
       "iso_checksum": "769474248a3897f4865817446f9a4a53",
       "iso_checksum_type": "md5",
-      "ssh_username": "packer",
-      "ssh_password": "packer",
-      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
-      "headless": true
+      "http_directory" : "http",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{ .Name }} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "60m",
+      "shutdown_command": "sudo poweroff"
     }
   ],
   "provisioners": [
@@ -30,7 +42,7 @@
         "type": "vagrant-cloud",
         "access_token": "{{user `vagrant_token`}}",
         "box_tag": "fathens/boot2docker",
-        "version": "0.0.1"
+        "version": "0.0.3"
       }
     ]
   ]
