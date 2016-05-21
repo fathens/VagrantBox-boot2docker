@@ -8,8 +8,7 @@ chmod 600 ~/.ssh/authorized_keys
 ls -la ~/.ssh
 
 # Add to sudoers
-echo 'vagrant' | sudo -S sh -c "echo 'vagrant ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/vagrant"
-echo 'vagrant' | sudo -S chmod 0440 /etc/sudoers.d/vagrant
+echo 'vagrant' | sudo -S sh -c "echo 'vagrant ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/vagrant && chmod 0440 /etc/sudoers.d/vagrant"
 
 # Instal Docker
 sudo apt-get update -y
