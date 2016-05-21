@@ -23,4 +23,4 @@ install:
   - curl -L $PACKER_BIN_URL | sudo bsdtar -C /usr/local/bin -xf-
 
 script:
-  - PACKER_LOG=1 packer build packer.json
+  - packer build packer.json
