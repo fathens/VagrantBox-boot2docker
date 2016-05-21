@@ -1,15 +1,26 @@
 language: c
-services:
-  - docker
 
 branches:
   only:
     - master
     - develop
     - /^feature\/\w+/
+
 env:
   global:
-    - DOCKER_IMAGE=fathens/docker-packer-virtualbox:develop
+    - VBOX_EXTPACK_URL=http://download.virtualbox.org/virtualbox/5.0.20/Oracle_VM_VirtualBox_Extension_Pack-5.0.20-106931.vbox-extpack
+    - PACKER_BIN_URL=https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip
+
+before_install:
+  - sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+  - curl -L https://www.virtualbox.org/download/oracle_vbox.asc | sudo apt-key add -
+
+install:
+  - sudo apt-get update -q
+  - sudo apt-get install -q bsdtar virtualbox-5.0 linux-headers-$(uname -r)
+  - sudo /sbin/rcvboxdrv setup
+  - curl -LO $VBOX_EXTPACK_URL && sudo VBoxManage extpack install $(basename $VBOX_EXTPACK_URL)
+  - curl -L $PACKER_BIN_URL | sudo bsdtar -C /usr/local/bin -xf-
 
 script:
-  - docker run -v $(pwd):$(pwd) -w $(pwd) -e VAGRANT_TOKEN $DOCKER_IMAGE /bin/sh -c 'packer build packer.json'
+  - PACKER_LOG=1 packer build packer.json
