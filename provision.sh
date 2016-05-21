@@ -2,7 +2,7 @@ set -x
 
 # ssh authorized_keys
 mkdir ~/.ssh
-curl -L https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub > ~/.ssh/authorized_keys
+wget -qO- https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub > ~/.ssh/authorized_keys
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
 ls -la ~/.ssh
