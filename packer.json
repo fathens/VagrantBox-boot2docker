@@ -19,9 +19,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "inline": [
-        "echo \"Provisioning by '$(whoami)'\""
-      ]
+      "script": "provision.sh"
     }
   ],
   "post-processors": [
