@@ -23,3 +23,9 @@ sudo apt-get install -y docker-engine
 sudo service docker start
 sudo groupadd docker
 sudo usermod -aG docker vagrant
+
+# Install VirtualBox Guest Additions
+sudo apt-get install -y linux-headers-$(uname -r) build-essential dkms
+sudo mount -o loop,ro VBoxGuestAdditions.iso /mnt
+sudo /mnt/VBoxLinuxAdditions.run
+sudo umount /mnt
