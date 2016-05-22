@@ -23,4 +23,5 @@ install:
   - curl -L $PACKER_BIN_URL | sudo bsdtar -C /usr/local/bin -xf-
 
 script:
-  - travis_wait 60 packer build packer.json
+  - (while true; do echo 'Building...'; sleep 300; done) &
+  - packer build packer.json
