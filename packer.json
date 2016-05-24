@@ -15,8 +15,13 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "provision.sh",
+      "destination": "/tmp/provision.sh"
+    },
+    {
       "type": "shell",
-      "script": "provision.sh"
+      "inline": ["sudo su -c '/bin/bash /tmp/provision.sh'"]
     }
   ],
   "post-processors": [
