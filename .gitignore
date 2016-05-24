@@ -1,4 +1,2 @@
 .*
-/packer_cache/
-/output-virtualbox-iso/
-packer_*.box
+*.box
