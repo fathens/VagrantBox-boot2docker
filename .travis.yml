@@ -1,4 +1,4 @@
-language: c
+language: ruby
 
 branches:
   only:
@@ -8,6 +8,7 @@ branches:
 
 env:
   global:
+    - SRC_BOX_NAME=ubuntu/trusty64
     - VBOX_EXTPACK_URL=http://download.virtualbox.org/virtualbox/5.0.20/Oracle_VM_VirtualBox_Extension_Pack-5.0.20-106931.vbox-extpack
     - PACKER_BIN_URL=https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip
 
@@ -21,7 +22,9 @@ install:
   - sudo /sbin/rcvboxdrv setup
   - curl -LO $VBOX_EXTPACK_URL && sudo VBoxManage extpack install $(basename $VBOX_EXTPACK_URL)
   - curl -L $PACKER_BIN_URL | sudo bsdtar -C /usr/local/bin -xf-
+  - gem install vagrant
 
 script:
-  - (while true; do echo 'Building...'; sleep 300; done) &
+  - vagrant box add $SRC_BOX_NAME
+  - export OVF_PATH=$(ls ~/.vagrant.d/boxes/$(echo $SRC_BOX_NAME | sed 's/\//-VAGRANTSLASH-/g')/*/virtualbox/box.ovf | sort -r | head -n1)
   - packer build packer.json
